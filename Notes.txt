@@ -1,0 +1,9 @@
+Application which will convert video to mp3 using microservices architecture
+
+*) Technologies:
+    - Python
+    - MongoDB
+    - MySQL
+    - RabbitMQ
+    - Docker
+    - Kubernetes
