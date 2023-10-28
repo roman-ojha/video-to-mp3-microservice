@@ -1,5 +1,21 @@
 Application which will convert video to mp3 using microservices architecture
 
+*) System Design:
+    -> './01_System_Design.png'
+    -> When a user upload a video to be converted into mp3 it will first it an "api Gateway" then Our gateway will store the video into "MongoDB" and then it will put a message into "Queue(RabbitMQ)"
+    -> Then the "video to mp3 converter service" will consume message from the "Queue" it will then get the id from the message, pull the video from the "MongoDB" convert the video to mp3 then store the mp3 on "mongoDB" 
+    -> then Put a new message into "Queue" to be consume by the "notification service" which say that the conversion job is done, then the notification service consume those messages from the "Queue" and Send an Email notification to the client Informing the client that the mp3 for the video has been converted and ready for download.
+    -> Client can use the URL with the MP3 id with it's Authorization token to download the mp3 then the API Gateway will pull the MP3 from mongoDB and Serve it to the client.
+    
+*) Install:
+    - Docker
+    - Kubectl
+    - Minikube
+    - K9s (https://github.com/derailed/k9s)
+    - python3
+    - mySQL
+    
+
 *) Technologies:
     - Python
     - MongoDB
@@ -7,3 +23,13 @@ Application which will convert video to mp3 using microservices architecture
     - RabbitMQ
     - Docker
     - Kubernetes
+    
+*) Steps:
+    *) Auth Service Code:
+        -> './system_design/python/src/auth' contain the auth service code
+        -> we will going to write all the code for this service into one file 'server.py'
+        -> python3 -m venv venv
+        -> activate the environment
+        -> Install:
+            - pip install pylint
+            - pip install jedi
