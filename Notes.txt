@@ -30,6 +30,4 @@ Application which will convert video to mp3 using microservices architecture
         -> we will going to write all the code for this service into one file 'server.py'
         -> python3 -m venv venv
         -> activate the environment
-        -> Install:
-            - pip install pylint
-            - pip install jedi
+        -> Auth Flow Overview & JWT: https://youtu.be/hmkF77F9TLw?t=1928
