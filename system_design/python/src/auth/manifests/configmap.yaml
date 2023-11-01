@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: auth-configmap
+data:
+  # since we are going to use local MySQL server we will going to reference that server from within our kubernetes cluster
+  # and minikube allow us to access the cluster host
+  MYSQL_HOST: host.minikube.internal
+  MYSQL_USER: root
+  MYSQL_DB: video_to_mp3_ms_auth
+  MYSQL_PORT: "3306"

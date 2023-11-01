@@ -1,3 +1,4 @@
+-> Reference code: https://github.com/selikapro/microservices-python
 Application which will convert video to mp3 using microservices architecture
 
 *) System Design:
@@ -33,3 +34,4 @@ Application which will convert video to mp3 using microservices architecture
         -> Auth Flow Overview & JWT: https://youtu.be/hmkF77F9TLw?t=1928
         -> After completion of auth server we will now write a code for the deployment for that we will going to create the docker image using docker file
         -> after build the docker image with 'docker build .' command we will now deploy the image into docker hub so that our k9s can be able to pull the image from docker hub
+        -> Now we will going to write a kubernetes config inside './system_design/python/src/auth/manifests'
