@@ -1,14 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: auth
+  name: video-to-mp3-ms-auth-service
   labels:
-    app: auth
+    app: video-to-mp3-ms-auth-service
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: auth
+      app: video-to-mp3-ms-auth-service
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -16,10 +16,10 @@ spec:
   template:
     metadata:
       labels:
-        app: auth
+        app: video-to-mp3-ms-auth-service
     spec:
       containers:
-        - name: auth
+        - name: video-to-mp3-ms-auth-service
           image: romanojha/video-to-mp3-ms-auth-service
           ports:
             - containerPort: 5000

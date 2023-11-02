@@ -12,7 +12,7 @@ Application which will convert video to mp3 using microservices architecture
     - Docker
     - Kubectl
     - Minikube
-    - K9s (https://github.com/derailed/k9s)
+    - K9s (https://github.com/derailed/k8s)
     - python3
     - mySQL
     
@@ -26,12 +26,15 @@ Application which will convert video to mp3 using microservices architecture
     - Kubernetes
     
 *) Steps:
-    *) Auth Service Code:
+    *) Auth Service:
         -> './system_design/python/src/auth' contain the auth service code
         -> we will going to write all the code for this service into one file 'server.py'
         -> python3 -m venv venv
         -> activate the environment
         -> Auth Flow Overview & JWT: https://youtu.be/hmkF77F9TLw?t=1928
         -> After completion of auth server we will now write a code for the deployment for that we will going to create the docker image using docker file
-        -> after build the docker image with 'docker build .' command we will now deploy the image into docker hub so that our k9s can be able to pull the image from docker hub
+        -> after build the docker image with 'docker build .' command we will now deploy the image into docker hub so that our k8s can be able to pull the image from docker hub
         -> Now we will going to write a kubernetes config inside './system_design/python/src/auth/manifests'
+        -> After creating all of the configuration we will now going to deploy 'auth' service to k8s cluster
+        -> Kubernetes explanation: https://youtu.be/hmkF77F9TLw?t=4773
+        -> Kubernetes API References: https://kubernetes.io/docs/reference/kubernetes-api/
