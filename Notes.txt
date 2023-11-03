@@ -38,3 +38,9 @@ Application which will convert video to mp3 using microservices architecture
         -> After creating all of the configuration we will now going to deploy 'auth' service to k8s cluster
         -> Kubernetes explanation: https://youtu.be/hmkF77F9TLw?t=4773
         -> Kubernetes API References: https://kubernetes.io/docs/reference/kubernetes-api/
+        
+    *) Gateway Service:
+        -> pip3 install pika
+        -> pip3 install flask
+        -> pip3 install pyMongo
+        -> pip3 install Flask-PyMongo
