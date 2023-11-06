@@ -44,3 +44,12 @@ Application which will convert video to mp3 using microservices architecture
         -> pip3 install flask
         -> pip3 install pyMongo
         -> pip3 install Flask-PyMongo
+
+
+*) Key Terms When considering microservice architecture:
+    a. Synchronous Interservice Communication
+        -> https://youtu.be/hmkF77F9TLw?t=6452
+    b. Asynchronous Interservice Communication
+        -> https://youtu.be/hmkF77F9TLw?t=6513
+    c. Strong & Eventual Consistency
+        -> https://youtu.be/hmkF77F9TLw?t=6664

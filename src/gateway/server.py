@@ -8,7 +8,7 @@ from flask import Flask, request
 # 'flask_pymongo' to interact with mongodb so that we can store files
 from flask_pymongo import PyMongo
 from auth import validate
-from auth_svc import access
+from auth_service import access
 from storage import util
 
 server = Flask(__name__)
@@ -30,3 +30,15 @@ fs_mp3s = gridfs.GridFS(mongo_mp3.db)
 connection = pika.BlockingConnection(pika.ConnectionParameters("rabbitmq"))
 # 'rabbitmq' string is referencing the RabbitMQ Host from the k8s cluster
 channel = connection.channel()
+
+
+# This route will going to communicate with 'Auth' Service to authenticate the user
+@server.route("/login", methods=["POST"])
+def login():
+    # this 'access.login' function will going to communicate with the auth service using http request
+    token, err = access.login(request)
+
+    if not err:
+        return token
+    else:
+        return err
