@@ -4,7 +4,7 @@ from decouple import config
 
 
 def login(request):
-    # getting authorization header
+    # getting request authorization
     auth = request.authorization
     if not auth:
         return None, ("missing credentials", 401)

@@ -42,3 +42,40 @@ def login():
         return token
     else:
         return err
+
+
+# Upload roue will upload the video coming from client to the mongodb
+@server.route("/upload", methods=["POST"])
+def upload():
+    # before upload the video we will validate the user through his/her token
+    access, err = validate.token(request)
+
+    if err:
+        return err
+
+    access = json.loads(access)
+    # after decoding the jason string and converting to python object we will going to get bello format of python object
+    # {
+    #     "username": <username>,
+    #     "exp": <date_time>,
+    #     "iat": <datetime>,
+    #     "admin": <true|false>,
+    # },
+
+    if access["admin"]:  # only admin can upload the video
+        if len(request.files) > 1 or len(request.files) < 1:
+            return "exactly 1 file required", 400
+
+        for _, f in request.files.items():
+            # 'upload' function will upload the video to mongodb and send event to the RabbitMQ queue
+            # 'f': file
+            # 'fs_videos': GridFS instance
+            # 'chanel': RabbitMQ channel
+            err = util.upload(f, fs_videos, channel, access)
+
+            if err:
+                return err
+
+        return "success!", 200
+    else:
+        return "not authorized", 401
