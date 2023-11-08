@@ -53,3 +53,7 @@ Application which will convert video to mp3 using microservices architecture
         -> https://youtu.be/hmkF77F9TLw?t=6513
     c. Strong & Eventual Consistency
         -> https://youtu.be/hmkF77F9TLw?t=6664
+
+    *) How dows RabbitMQ fit into our architecture?
+        -> https://youtu.be/hmkF77F9TLw?t=8219
+        -> './02_Working_of_RabbitMQ.png'

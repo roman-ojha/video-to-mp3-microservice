@@ -7,7 +7,7 @@ import json
 from flask import Flask, request
 # 'flask_pymongo' to interact with mongodb so that we can store files
 from flask_pymongo import PyMongo
-from auth import validate
+from _auth import validate
 from auth_service import access
 from storage import util
 
@@ -79,3 +79,34 @@ def upload():
         return "success!", 200
     else:
         return "not authorized", 401
+
+
+# Route help to download the MP3 stored inside MongoDB after get converted from uploaded video
+@server.route("/download", methods=["GET"])
+def download():
+    # access, err = validate.token(request)
+
+    # if err:
+    #     return err
+
+    # access = json.loads(access)
+
+    # if access["admin"]:
+    #     fid_string = request.args.get("fid")
+
+    #     if not fid_string:
+    #         return "fid is required", 400
+
+    #     try:
+    #         out = fs_mp3s.get(ObjectId(fid_string))
+    #         return send_file(out, download_name=f"{fid_string}.mp3")
+    #     except Exception as err:
+    #         print(err)
+    #         return "internal server error", 500
+
+    # return "not authorized", 401
+    pass
+
+
+if __name__ == "__main__":
+    server.run(host="0.0.0.0", port=8080)
