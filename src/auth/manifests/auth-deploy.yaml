@@ -25,6 +25,6 @@ spec:
             - containerPort: 5000
           envFrom:
             - configMapRef:
-                name: auth-configmap
+                name: video-to-mp3-ms-auth-configmap
             - secretRef:
-                name: auth-secret
+                name: video-to-mp3-ms-auth-secret

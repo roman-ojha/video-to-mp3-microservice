@@ -1,0 +1,24 @@
+# Our gateway api needs to be able to access from outside of the k8s cluster because of that we have to create ingress
+# What's an Ingress: https://youtu.be/hmkF77F9TLw?t=9197
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: video-to-mp3-ms-gateway-ingress
+  annotations: # we will going to use the default nginx ingress
+    nginx.ingress.kubernetes.io/proxy-body-size: "0"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "600"
+    #nginx.ingress.kubernetes.io/proxy-max-temp-file-size: "1024m"
+spec:
+  rules:
+    - host: mp3converter.com # route this host to our 'video-to-mp3-ms-gateway' service
+      # how to route the request from 'mp3converter.com' to 'localhost' in our machine: https://youtu.be/hmkF77F9TLw?t=9506
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: video-to-mp3-ms-gateway
+                port:
+                  number: 8080

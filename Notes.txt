@@ -27,14 +27,14 @@ Application which will convert video to mp3 using microservices architecture
     
 *) Steps:
     *) Auth Service:
-        -> './system_design/python/src/auth' contain the auth service code
+        -> './src/auth' contain the auth service code
         -> we will going to write all the code for this service into one file 'server.py'
         -> python3 -m venv venv
         -> activate the environment
         -> Auth Flow Overview & JWT: https://youtu.be/hmkF77F9TLw?t=1928
         -> After completion of auth server we will now write a code for the deployment for that we will going to create the docker image using docker file
         -> after build the docker image with 'docker build .' command we will now deploy the image into docker hub so that our k8s can be able to pull the image from docker hub
-        -> Now we will going to write a kubernetes config inside './system_design/python/src/auth/manifests'
+        -> Now we will going to write a kubernetes config inside './src/auth/manifests'
         -> After creating all of the configuration we will now going to deploy 'auth' service to k8s cluster
         -> Kubernetes explanation: https://youtu.be/hmkF77F9TLw?t=4773
         -> Kubernetes API References: https://kubernetes.io/docs/reference/kubernetes-api/
@@ -45,15 +45,20 @@ Application which will convert video to mp3 using microservices architecture
         -> pip3 install pyMongo
         -> pip3 install Flask-PyMongo
 
+        *) Key Terms When considering microservice architecture:
+            a. Synchronous Interservice Communication
+                -> https://youtu.be/hmkF77F9TLw?t=6452
+            b. Asynchronous Interservice Communication
+                -> https://youtu.be/hmkF77F9TLw?t=6513
+            c. Strong & Eventual Consistency
+                -> https://youtu.be/hmkF77F9TLw?t=6664
 
-*) Key Terms When considering microservice architecture:
-    a. Synchronous Interservice Communication
-        -> https://youtu.be/hmkF77F9TLw?t=6452
-    b. Asynchronous Interservice Communication
-        -> https://youtu.be/hmkF77F9TLw?t=6513
-    c. Strong & Eventual Consistency
-        -> https://youtu.be/hmkF77F9TLw?t=6664
-
-    *) How dows RabbitMQ fit into our architecture?
-        -> https://youtu.be/hmkF77F9TLw?t=8219
-        -> './02_Working_of_RabbitMQ.png'
+            *) How dows RabbitMQ fit into our architecture?
+                -> https://youtu.be/hmkF77F9TLw?t=8219
+                -> './02_Working_of_RabbitMQ.png'
+                
+        -> After completing gateway service now we will write docker file './src/gateway/Dockerfile'
+            -> docker build .
+            -> docker tag 9c3514b3c428 romanojha/video-to-mp3-ms-gateway:latest
+            
+        -> Now we can create K8s configuration inside './src/gateway/manifests'

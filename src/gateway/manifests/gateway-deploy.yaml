@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: video-to-mp3-ms-gateway
+  labels:
+    app: video-to-mp3-ms-gateway
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: video-to-mp3-ms-gateway
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 3
+  template:
+    metadata:
+      labels:
+        app: video-to-mp3-ms-gateway
+    spec:
+      containers:
+        - name: video-to-mp3-ms-gateway
+          image: romanojha/video-to-mp3-ms-gateway
+          envFrom:
+            - configMapRef:
+                name: video-to-mp3-ms-gateway-configmap
+            - secretRef:
+                name: video-to-mp3-ms-gateway-secret
