@@ -62,3 +62,11 @@ Application which will convert video to mp3 using microservices architecture
             -> docker tag 9c3514b3c428 romanojha/video-to-mp3-ms-gateway:latest
             
         -> Now we can create K8s configuration inside './src/gateway/manifests'
+        
+        *) Create and Deploy rabbitMQ container to our kubernetes cluster:
+            -> https://youtu.be/hmkF77F9TLw?t=9825
+
+    *) RabbitMQ Config:
+        -> we will create k8s config inside './src/rabbit' folder
+        -> for RabbitMQ we need stateful set because we want the state of the RabbitMQ to be intact whenever pod crashes.
+        -> Stateful set: https://youtu.be/hmkF77F9TLw?t=9849
