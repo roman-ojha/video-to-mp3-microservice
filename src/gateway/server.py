@@ -4,21 +4,24 @@ import gridfs
 # 'pick' is an interface for out Queue for that we will use RabbitMQ service
 import pika
 import json
-from flask import Flask, request
+from flask import Flask, request, send_file
 # 'flask_pymongo' to interact with mongodb so that we can store files
 from flask_pymongo import PyMongo
 from _auth import validate
 from auth_service import access
 from storage import util
+from bson.objectid import ObjectId
 
 server = Flask(__name__)
 # accessing mongodb from k8s cluster host machine
-server.config["MONGO_URI"] = "mongodb://host.minikube.internal:27017/videos"
+# server.config["MONGO_URI"] = "mongodb://host.minikube.internal:27017/videos"
 
 # PyMongo wrap our flask server which will allow us to interact with mongodb
+# PyMongo instance for videos database
 mongo_video = PyMongo(
     server, uri="mongodb://host.minikube.internal:27017/videos")
 
+# PyMongo instance for mp3s database
 mongo_mp3 = PyMongo(server, uri="mongodb://host.minikube.internal:27017/mp3s")
 
 # GridFS wrap our mongodb which will enable us to use mongodb GridFS
@@ -28,7 +31,8 @@ fs_mp3s = gridfs.GridFS(mongo_mp3.db)
 
 # Creating RabbitMQ connection
 connection = pika.BlockingConnection(pika.ConnectionParameters("rabbitmq"))
-# 'rabbitmq' string is referencing the RabbitMQ Host from the k8s cluster
+# 'rabbitmq' string is referencing to the service name from the k8s cluster
+# And the service name in k8s resolves to the host
 channel = connection.channel()
 
 
@@ -84,28 +88,30 @@ def upload():
 # Route help to download the MP3 stored inside MongoDB after get converted from uploaded video
 @server.route("/download", methods=["GET"])
 def download():
-    # access, err = validate.token(request)
+    access, err = validate.token(request)
 
-    # if err:
-    #     return err
+    if err:
+        return err
 
-    # access = json.loads(access)
+    access = json.loads(access)
 
-    # if access["admin"]:
-    #     fid_string = request.args.get("fid")
+    if access["admin"]:
+        # getting file id passed to URL for user in email
+        fid_string = request.args.get("fid")
 
-    #     if not fid_string:
-    #         return "fid is required", 400
+        if not fid_string:
+            return "fid is required", 400
 
-    #     try:
-    #         out = fs_mp3s.get(ObjectId(fid_string))
-    #         return send_file(out, download_name=f"{fid_string}.mp3")
-    #     except Exception as err:
-    #         print(err)
-    #         return "internal server error", 500
+        try:
+            # getting mp3 files from mongodb
+            out = fs_mp3s.get(ObjectId(fid_string))
+            # returning the file for download to the client
+            return send_file(out, download_name=f"{fid_string}.mp3")
+        except Exception as err:
+            print(err)
+            return "internal server error", 500
 
-    # return "not authorized", 401
-    pass
+    return "not authorized", 401
 
 
 if __name__ == "__main__":

@@ -74,5 +74,10 @@ Application which will convert video to mp3 using microservices architecture
         
     *) Converter Service:
         -> './src/converter'
-        -> This service pulls message from rabbitMQ and then convert the video to mp3
+        -> This service pulls message from rabbitMQ and then convert the video to mp3 and the push the new message to 'mp3' Queue for Notification Service
         -> Now we will write dockerfile and k8s config for this service
+        -> Testing the application: https://youtu.be/hmkF77F9TLw?t=13479
+        
+    *) Notification Service:
+        -> This service will pull the message from the 'mp3' Queue from RabbitMQ and then Notification service send email to the user
+        -> Then after that use can download the mp3 from Gateway service
