@@ -70,3 +70,7 @@ Application which will convert video to mp3 using microservices architecture
         -> we will create k8s config inside './src/rabbit' folder
         -> for RabbitMQ we need stateful set because we want the state of the RabbitMQ to be intact whenever pod crashes.
         -> Stateful set: https://youtu.be/hmkF77F9TLw?t=9849
+        -> Configure Queue using RabbitMQ management console: https://youtu.be/hmkF77F9TLw?t=11031
+        
+    *) Converter Service:
+        -> This service pulls message from rabbitMQ and then convert the video to mp3
