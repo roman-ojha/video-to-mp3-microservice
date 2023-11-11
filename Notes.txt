@@ -73,4 +73,6 @@ Application which will convert video to mp3 using microservices architecture
         -> Configure Queue using RabbitMQ management console: https://youtu.be/hmkF77F9TLw?t=11031
         
     *) Converter Service:
+        -> './src/converter'
         -> This service pulls message from rabbitMQ and then convert the video to mp3
+        -> Now we will write dockerfile and k8s config for this service

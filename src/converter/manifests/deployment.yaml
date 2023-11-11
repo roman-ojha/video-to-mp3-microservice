@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: video-to-mp3-ms-converter-service
+  labels:
+    app: video-to-mp3-ms-converter-service
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: video-to-mp3-ms-converter-service
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 8
+  template:
+    metadata:
+      labels:
+        app: video-to-mp3-ms-converter-service
+    spec:
+      containers:
+        - name: video-to-mp3-ms-converter-service
+          image: romanojha/video-to-mp3-ms-converter-service
+          envFrom:
+            - configMapRef:
+                name: video-to-mp3-ms-converter-service-configmap
+            - secretRef:
+                name: video-to-mp3-ms-converter-service-secret
